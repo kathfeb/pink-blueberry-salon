@@ -29,9 +29,11 @@ const Header: React.FC = () => {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-pink-500 to-blue-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">PB</span>
-              </div>
+              <img
+                src="/logo.png"
+                alt="Logo"
+                className="w-10 h-10 md:w-14 md:h-14 bg-cover"
+              />
               <div>
                 <h1 className="text-xl md:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-600">
                   The Pink Blueberry

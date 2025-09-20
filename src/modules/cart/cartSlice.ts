@@ -11,31 +11,8 @@ interface CartState {
   isOpen: boolean;
 }
 
-// Safely load cart items from localStorage (browser only)
-const loadPersistedCart = (): CartItem[] => {
-  try {
-    if (typeof window === "undefined") return [];
-    const raw = localStorage.getItem("cart");
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    const items = Array.isArray(parsed?.items) ? parsed.items : [];
-    // Basic validation of item shape
-    return items.filter(
-      (it: any) =>
-        it &&
-        typeof it.quantity === "number" &&
-        it.quantity > 0 &&
-        it.product &&
-        typeof it.product.id === "number"
-    );
-  } catch {
-    return [];
-  }
-};
-
 const initialState: CartState = {
-  items: loadPersistedCart(),
-  // Never persist UI open state; default to closed
+  items: [],
   isOpen: false,
 };
 
@@ -65,12 +42,10 @@ const cartSlice = createSlice({
       state,
       action: PayloadAction<{ productId: number; quantity: number }>
     ) => {
-      console.log("action ->", action);
       const item = state.items.find(
         (item) => item.product.id === action.payload.productId
       );
 
-      console.log("item ", item);
       if (item && action.payload.quantity > 0) {
         item.quantity = action.payload.quantity;
       }

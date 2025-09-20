@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { RootState } from "../../config/redux/store";
-import { clearCart } from "../../modules/cart/cartSlice";
+import { clearCart, type CartItem } from "../../modules/cart/cartSlice";
 import OrderSuccessModal from "./OrderSuccessModal";
 
 interface CheckoutModalProps {
@@ -95,7 +95,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
   onSuccess,
 }) => {
   const dispatch = useDispatch();
-  const { items } = useSelector((state: RootState) => state.cart);
+  const items = useSelector<RootState, CartItem[]>((state) => state.cart.items);
   const [step, setStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
