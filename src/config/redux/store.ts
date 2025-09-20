@@ -12,6 +12,22 @@ export const store = configureStore({
     ),
 });
 
+// Persist cart to localStorage on state changes
+if (typeof window !== "undefined") {
+  let prev = store.getState().cart.items;
+  store.subscribe(() => {
+    const { items } = store.getState().cart;
+    if (items !== prev) {
+      try {
+        localStorage.setItem("cart", JSON.stringify({ items }));
+      } catch {
+        // ignore write errors
+      }
+      prev = items;
+    }
+  });
+}
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export type AppStore = typeof store;

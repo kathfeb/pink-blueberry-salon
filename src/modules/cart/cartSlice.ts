@@ -11,8 +11,31 @@ interface CartState {
   isOpen: boolean;
 }
 
+// Safely load cart items from localStorage (browser only)
+const loadPersistedCart = (): CartItem[] => {
+  try {
+    if (typeof window === "undefined") return [];
+    const raw = localStorage.getItem("cart");
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    const items = Array.isArray(parsed?.items) ? parsed.items : [];
+    // Basic validation of item shape
+    return items.filter(
+      (it: any) =>
+        it &&
+        typeof it.quantity === "number" &&
+        it.quantity > 0 &&
+        it.product &&
+        typeof it.product.id === "number"
+    );
+  } catch {
+    return [];
+  }
+};
+
 const initialState: CartState = {
-  items: [],
+  items: loadPersistedCart(),
+  // Never persist UI open state; default to closed
   isOpen: false,
 };
 
