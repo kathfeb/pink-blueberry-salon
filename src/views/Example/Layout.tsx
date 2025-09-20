@@ -9,7 +9,6 @@
 import { FC } from "react";
 import { FormTools } from "../../domain/form/form.types";
 import { Credentials } from "../../domain/credentials/credentials.type";
-import { InputForm } from "../../components/molecules/InputForm";
 
 interface PropTypes {
   formTools: FormTools<Credentials>;
@@ -25,32 +24,57 @@ export const SignIpLayout: FC<PropTypes> = ({ formTools }) => {
         onSubmit={onSubmit}
       >
         <div className="flex flex-col gap-4">
-          <InputForm
-            type="email"
-            name="email"
-            id="email"
-            label="Email *"
-            full
-            placeholder="Enter your email"
-            register={register("email")}
-            errors={errors.email?.message}
-          />
-          <InputForm
-            type="password"
-            name="current-password"
-            id="current-password"
-            full
-            label="Password *"
-            register={register("password")}
-            placeholder="Enter your password"
-            errors={errors.password?.message}
-          />
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Email *
+            </label>
+            <input
+              type="email"
+              id="email"
+              {...register("email")}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent ${
+                errors.email ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="Enter your email"
+            />
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label
+              htmlFor="current-password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Password *
+            </label>
+            <input
+              type="password"
+              id="current-password"
+              {...register("password")}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent ${
+                errors.password ? "border-red-500" : "border-gray-300"
+              }`}
+              placeholder="Enter your password"
+            />
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="mt-4 flex flex-row gap-4">
           <button
             type="submit"
-            className="bg-primary-blue-100 px-3 py-2 text-white font-medium"
+            className="bg-gradient-to-r from-pink-500 to-blue-500 px-4 py-2 text-white font-medium rounded-lg hover:shadow-lg transform hover:scale-105 transition-all"
           >
             SEND
           </button>

@@ -6,6 +6,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* Import animations */
+@import "./animations/success.css";
+
 @layer base {
   html {
     scroll-behavior: smooth;

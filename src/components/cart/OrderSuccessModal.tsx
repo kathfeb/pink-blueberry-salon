@@ -121,23 +121,6 @@ const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
           This window will close automatically in 5 seconds
         </p>
       </div>
-
-      <style jsx>{`
-        @keyframes draw-check {
-          0% {
-            stroke-dasharray: 0 100;
-          }
-          100% {
-            stroke-dasharray: 100 0;
-          }
-        }
-
-        .animate-draw-check {
-          animation: draw-check 0.6s ease-in-out 0.3s forwards;
-          stroke-dasharray: 100;
-          stroke-dashoffset: 100;
-        }
-      `}</style>
     </div>
   );
 };
