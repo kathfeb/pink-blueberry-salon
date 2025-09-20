@@ -13,12 +13,25 @@ export const HomePage: React.FC = () => {
       {/* Hero Section */}
       <section className="relative bg-gradient-subtle py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-6xl font-light text-slate-800 mb-4">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <img
+              src="/logo.png"
+              alt="Logo"
+              className="w-12 h-12 md:w-16 md:h-16 bg-cover"
+            />
+            <h1 className="text-3xl lg:text-5xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-600">
+              The Pink Blueberry
+            </h1>
+          </div>
+          <p className="text-sm md:text-base text-slate-500 mb-6">
+            Luxury Hair Salon
+          </p>
+          <h2 className="text-4xl lg:text-6xl font-light text-slate-800 mb-4">
             Where Luxury Meets
-            <span className="block font-normal bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">
+            <span className="block font-normal bg-gradient-to-r from-pink-500 to-blue-600 bg-clip-text text-transparent">
               Natural Beauty
             </span>
-          </h1>
+          </h2>
           <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
             Experience premium salon services and discover our collection of
             organic beauty products

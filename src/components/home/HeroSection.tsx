@@ -15,9 +15,11 @@ const HeroSection: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center">
           {/* Logo/Brand */}
           <div className="mb-8">
-            <h1 className="text-display-md md:text-display-lg font-light text-slate-800 mb-2 animate-fade-in">
-              The Pink Blueberry
-            </h1>
+            <div className="flex items-center justify-center gap-3 mb-2 animate-fade-in">
+              <h1 className="text-display-md md:text-display-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-600">
+                The Pink Blueberry
+              </h1>
+            </div>
             <p className="text-xl md:text-2xl text-slate-600 font-light animate-slide-up animation-delay-200">
               Where Luxury Meets Natural Beauty
             </p>
