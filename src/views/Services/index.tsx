@@ -16,8 +16,12 @@ const ServicesPage: React.FC = () => {
       ? services
       : services.filter((service) => service.category === selectedCategory);
 
-  const handleBookNow = () => {
-    navigate("/book");
+  const handleBookNow = (serviceId?: number) => {
+    if (serviceId != null) {
+      navigate("/book", { state: { selectedService: serviceId } });
+    } else {
+      navigate("/book");
+    }
   };
 
   return (
@@ -96,7 +100,10 @@ const ServicesPage: React.FC = () => {
               </div>
 
               {/* Book Button */}
-              <button onClick={handleBookNow} className="btn-primary w-full">
+              <button
+                onClick={() => handleBookNow(service.id)}
+                className="btn-primary w-full"
+              >
                 Book This Service
               </button>
             </div>
@@ -112,7 +119,10 @@ const ServicesPage: React.FC = () => {
             Our expert stylists are ready to help you achieve your dream hair.
             Book your appointment today!
           </p>
-          <button onClick={handleBookNow} className="btn-primary btn-lg">
+          <button
+            onClick={() => handleBookNow()}
+            className="btn-primary btn-lg"
+          >
             Book Your Appointment
           </button>
         </div>

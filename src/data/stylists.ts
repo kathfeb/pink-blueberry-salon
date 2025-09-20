@@ -47,4 +47,22 @@ export const stylists: Stylist[] = [
     rating: 4.7,
     available: true,
   },
+  {
+    id: 5,
+    name: "Naomi Brooks",
+    title: "Bridal Specialist",
+    specialties: ["Updos", "Bridal Hair", "Extensions"],
+    bio: "Naomi crafts elegant updos and timeless bridal looks, focusing on longevity and comfort for your special day.",
+    rating: 4.9,
+    available: true,
+  },
+  {
+    id: 6,
+    name: "Diego Rivera",
+    title: "Texture & Curls Pro",
+    specialties: ["Curly Cuts", "Texturizing", "Treatments"],
+    bio: "Diego specializes in enhancing natural curl patterns with shape, definition, and healthy haircare routines.",
+    rating: 4.8,
+    available: true,
+  },
 ];

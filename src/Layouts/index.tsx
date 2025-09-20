@@ -2,7 +2,6 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
-import CartIcon from "../components/shop/CartIcon";
 
 const PageLayout: React.FC = () => {
   return (
@@ -12,7 +11,6 @@ const PageLayout: React.FC = () => {
         <Outlet />
       </main>
       <Footer />
-      <CartIcon />
     </div>
   );
 };

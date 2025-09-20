@@ -5,7 +5,6 @@
 import classnames from "classnames";
 import { InputFormProps } from "./types";
 import { Input } from "../../atoms/Input";
-import { Label } from "../../atoms/Label";
 import { Button } from "../../atoms/Button";
 import { useState } from "react";
 
@@ -13,20 +12,15 @@ const InputForm = ({
   id,
   name,
   type = "text",
-  handleChange,
+  onChange: handleChange,
   disabled = false,
   placeholder,
-  classNames,
-  register,
-  error = false,
+  className: classNames,
+  error,
   defaultValue,
-  borderRadius = "large",
-  styles = "small",
   full = true,
   label,
   required,
-  labelSize = "normal",
-  labelColor = "grey-dark",
   border = true,
   errors,
   showPassword = true,
@@ -40,22 +34,12 @@ const InputForm = ({
         "--form-full": full,
       })}
     >
-      <label htmlFor={id} className={classnames("input__container")}>
-        {type !== "hidden" && label && (
-          <Label
-            required={required}
-            value={label}
-            size={labelSize}
-            variant={labelColor}
-            classNames="capitalize"
-          />
-        )}
-
+      <div className={classnames("input__container")}>
         <div className={classnames("input__container--icon")}>
           {type === "password" && showPassword && (
             <Button
               onClick={() => setShowField(!showField)}
-              variant="secondary-ghost"
+              variant="secondary"
               className="input__hide-btn "
             >
               {!showField && <i className="fa-regular fa-eye-slash fa-lg"></i>}
@@ -66,17 +50,16 @@ const InputForm = ({
           <Input
             id={id}
             name={name}
-            type={showField ? "text" : type}
-            handleChange={handleChange}
+            type={showField ? "text" : (type as any)}
+            onChange={handleChange}
             disabled={disabled}
             placeholder={placeholder}
-            register={register}
-            error={error ?? !!errors}
+            label={label}
+            required={required}
+            error={error || errors}
             defaultValue={defaultValue}
-            borderRadius={borderRadius}
-            styles={styles}
-            full={full}
-            classNames={classnames(
+            fullWidth={full}
+            className={classnames(
               {
                 "--input--border": border,
               },
@@ -85,8 +68,8 @@ const InputForm = ({
             {...rest}
           />
         </div>
-      </label>
-      {errors && <Label value={errors} size="small" variant="red" />}
+      </div>
+      {errors && <p className="text-sm text-red-500 mt-1">{errors}</p>}
     </div>
   );
 };

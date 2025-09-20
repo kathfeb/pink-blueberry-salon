@@ -6,8 +6,8 @@ const StylistsPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleBookWithStylist = (stylistId: number) => {
-    // Could pass the stylist ID to pre-select in booking flow
-    navigate("/book");
+    // Pass the stylist ID to pre-select in booking flow
+    navigate("/book", { state: { selectedStylist: stylistId } });
   };
 
   return (
@@ -23,7 +23,7 @@ const StylistsPage: React.FC = () => {
         </div>
 
         {/* Stylists Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {stylists.map((stylist) => (
             <div key={stylist.id} className="card text-center">
               {/* Avatar */}
@@ -33,6 +33,8 @@ const StylistsPage: React.FC = () => {
                   {stylist.id === 2 && "👨‍🦱"}
                   {stylist.id === 3 && "👩‍🦱"}
                   {stylist.id === 4 && "👩"}
+                  {stylist.id === 5 && "👰"}
+                  {stylist.id === 6 && "🌀"}
                 </span>
               </div>
 

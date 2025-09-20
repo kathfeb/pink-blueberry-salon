@@ -5,6 +5,7 @@ import {
   removeFromCart,
   updateQuantity,
   clearCart,
+  selectCartTotal,
 } from "../../modules/cart/cartSlice";
 
 interface CartDrawerProps {
@@ -14,10 +15,13 @@ interface CartDrawerProps {
 
 const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
-  const { items, total } = useSelector((state: RootState) => state.cart);
+  const items = useSelector((state: RootState) => state.cart.items);
+  const total = useSelector((state: RootState) =>
+    selectCartTotal({ cart: state.cart })
+  );
 
   const handleQuantityChange = (productId: number, newQuantity: number) => {
-    if (newQuantity === 0) {
+    if (newQuantity < 1) {
       dispatch(removeFromCart(productId));
     } else {
       dispatch(updateQuantity({ productId, quantity: newQuantity }));

@@ -1,40 +1,21 @@
 /**
  * @description Type definition for InputForm
  * @interface InputFormProps
- * @extends {InputProps} InputProps from Input component
  * @param {boolean} isRequired Active required label style
  */
 
-import { InputProps } from "../../atoms/Input/types";
-import { Sizes, Variants } from "../../atoms/Label/types";
+import React from "react";
 
 /**
  * Export InputFormForm Props
  */
-export interface InputFormProps extends InputProps {
+export interface InputFormProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
    *  Label text for input
    */
 
   label?: string;
-
-  /**
-   *  Label size
-   */
-
-  labelSize?: Sizes;
-
-  /**
-   *  Label color
-   */
-
-  labelColor?: Variants;
-
-  /**
-   *  error message size
-   */
-
-  errors?: string;
 
   /**
    *  Include border style
@@ -47,4 +28,19 @@ export interface InputFormProps extends InputProps {
    */
 
   showPassword?: boolean;
+
+  /**
+   *  Render input with full width
+   */
+  full?: boolean;
+
+  /**
+   * Error message to display and pass to the Input
+   */
+  error?: string;
+
+  /**
+   * Alternate error message prop used by some views
+   */
+  errors?: string;
 }

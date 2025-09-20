@@ -1,18 +1,16 @@
 import React from "react";
 import classNames from "classnames";
 
-interface CardProps {
-  className?: string;
+type CardProps = React.HTMLAttributes<HTMLDivElement> & {
   hover?: boolean;
-  children: React.ReactNode;
-  onClick?: () => void;
-}
+};
 
 const Card: React.FC<CardProps> = ({
   className,
   hover = false,
   children,
   onClick,
+  ...rest
 }) => {
   return (
     <div
@@ -25,6 +23,7 @@ const Card: React.FC<CardProps> = ({
         className
       )}
       onClick={onClick}
+      {...rest}
     >
       {children}
     </div>

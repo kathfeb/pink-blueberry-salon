@@ -1,7 +1,5 @@
 import { FC } from "react";
-import { InputSimple, VariantsInput } from "../../../atoms/Inputs/InputSimple";
-import { ErrorField } from "../../../atoms/labels/LabelError";
-import { LabelInput } from "../../../atoms/labels/LabelInput";
+import { Input } from "../../../atoms/Input";
 
 interface InputFormTypes<T = any> {
   defaultValue?: any;
@@ -10,9 +8,9 @@ interface InputFormTypes<T = any> {
   className?: string;
   id: string;
   label: string;
-  register?: any;
+  register?: any; // remains for compatibility where react-hook-form is used
   name: string;
-  type: VariantsInput;
+  type: React.HTMLInputTypeAttribute;
   errors: string | undefined;
   placeholder?: string;
   light?: boolean;
@@ -43,30 +41,22 @@ export const InputForm: FC<InputFormTypes> = ({
   pattern,
 }) => {
   return (
-    <div id="input" className={`flex flex-col ${full && "w-full"}`}>
-      <LabelInput
-        title={label}
-        light={light}
-        classes="text-sm font-light mb-1"
-      />
-      <InputSimple
+    <div id="input" className={`flex flex-col ${full ? "w-full" : ""}`}>
+      <Input
         id={id}
-        register={register}
         name={name}
         type={type}
         defaultValue={defaultValue}
         disabled={disabled}
-        className={`${className} !text-xs`}
+        className={`${className ?? ""} !text-xs`}
         placeholder={placeholder}
-        handleItemsValueChange={handleItemsValueChange}
-        onChageController={onChageController}
-        typeValue={typeValue}
-        idIndex={idIndex}
-        hasError={errors ? true : false}
-        pattern={pattern}
-        full
+        label={label}
+        fullWidth
+        error={errors}
+        {...(register ? register : {})}
+        pattern={pattern as unknown as string}
       />
-      {errors && <ErrorField errorMessage={errors} classes="mt-1" />}
+      {errors && <p className="text-sm text-red-500 mt-1">{errors}</p>}
     </div>
   );
 };

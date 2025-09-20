@@ -32,7 +32,7 @@ const initialCustomerInfo = {
   notes: "",
 };
 
-export const useBookingStore = create<BookingState>((set) => ({
+export const useBookingStore = create<BookingState>((set: any) => ({
   currentStep: 1,
   service: null,
   stylist: null,
@@ -40,22 +40,23 @@ export const useBookingStore = create<BookingState>((set) => ({
   time: null,
   customerInfo: initialCustomerInfo,
 
-  setService: (service) => set({ service }),
-  setStylist: (stylist) => set({ stylist }),
-  setDateTime: (date, time) => set({ date, time }),
-  setCustomerInfo: (info) => set({ customerInfo: info }),
+  setService: (service: Service) => set({ service }),
+  setStylist: (stylist: Stylist | null) => set({ stylist }),
+  setDateTime: (date: string, time: string) => set({ date, time }),
+  setCustomerInfo: (info: BookingState["customerInfo"]) =>
+    set({ customerInfo: info }),
 
   nextStep: () =>
-    set((state) => ({
+    set((state: BookingState) => ({
       currentStep: Math.min(state.currentStep + 1, 5),
     })),
 
   previousStep: () =>
-    set((state) => ({
+    set((state: BookingState) => ({
       currentStep: Math.max(state.currentStep - 1, 1),
     })),
 
-  goToStep: (step) => set({ currentStep: step }),
+  goToStep: (step: number) => set({ currentStep: step }),
 
   resetBooking: () =>
     set({
