@@ -20,7 +20,12 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", "eslint.config.mjs", "src/tests/setupTests.ts"],
+  "include": [
+    "src",
+    "eslint.config.mjs",
+    "src/tests/setupTests.ts",
+    "pwa-assets.config.ts"
+  ],
   "exclude": ["node_modules", "dist"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

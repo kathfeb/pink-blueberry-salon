@@ -3,36 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Pink Blueberry Salon - Luxury Digital Experience & Seamless Bookings
-    </title>
-    <link rel="icon" type="image/svg+xml" href="/ico.png" />
-
+    <title>The Pink Blueberry Salon - Luxury Hair & Beauty</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#ec4899" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Pink Blueberry" />
+    <meta name="msapplication-TileColor" content="#ec4899" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/mask-icon.svg" color="#ec4899" />
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- SEO Meta Tags -->
     <meta
       name="description"
-      content="The Pink Blueberry Salon PWA delivers a luxury digital experience with seamless bookings, e-commerce for premium salon products, and a comprehensive rewards program."
+      content="The Pink Blueberry Salon - Luxury digital experience with seamless bookings, premium salon products, and exclusive rewards. Book your appointment today!"
     />
-    <meta name="author" content="Pink Blueberry Salon" />
-
-    <meta
-      property="og:title"
-      content="Pink Blueberry Salon - Luxury Digital Experience & Seamless Bookings"
-    />
-    <meta
-      property="og:description"
-      content="A sophisticated salon web application combining luxury, artistry, and natural beauty. Book appointments with ease, shop premium products, and enjoy exclusive rewards."
-    />
+    <meta name="author" content="The Pink Blueberry Salon" />
+    <meta name="keywords" content="salon, hair, beauty, booking, luxury, spa, products" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="The Pink Blueberry Salon - Luxury Hair & Beauty" />
+    <meta property="og:description" content="Experience luxury salon services with seamless online booking and premium hair care products." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="" />
+    <meta property="og:url" content="https://pinkblueberrysalon.com" />
+    <meta property="og:image" content="/og-image.png" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Pink Blueberry Salon" />
+    <meta name="twitter:description" content="Luxury salon services & premium products" />
+    <meta name="twitter:image" content="/twitter-image.png" />
+    
+    <!-- External Resources -->
     <link
       rel="stylesheet"
       href="https://kit.fontawesome.com/2e1139c834.css"
       crossorigin="anonymous"
     />
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- PWA Install Prompt -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
+    </script>
   </body>
 </html>
