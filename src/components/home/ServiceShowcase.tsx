@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Card from "../common/Card";
-import Button from "../common/Button";
 import { services } from "../../data";
+import ServiceCard from "../services/ServiceCard";
+import Button from "../common/Button";
 
 const ServiceShowcase: React.FC = () => {
   const navigate = useNavigate();
@@ -24,57 +24,21 @@ const ServiceShowcase: React.FC = () => {
           </p>
         </div>
 
-        {/* Service cards */}
+        {/* Service cards (reuse the same as /services) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {featuredServices.map((service, index) => (
-            <Card
+            <div
               key={service.id}
-              hover
-              className="h-full animate-slide-up"
+              className="animate-slide-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="text-center">
-                {/* Category badge */}
-                <span className="inline-block px-3 py-1 text-sm font-medium text-pink-600 bg-pink-100 rounded-full mb-4">
-                  {service.category.charAt(0).toUpperCase() +
-                    service.category.slice(1)}
-                </span>
-
-                {/* Service name */}
-                <h3 className="text-heading-md text-slate-800 mb-2">
-                  {service.name}
-                </h3>
-
-                {/* Price */}
-                <div className="text-3xl font-light text-pink-500 mb-4">
-                  ${service.price}
-                </div>
-
-                {/* Duration */}
-                <div className="text-sm text-slate-500 mb-4">
-                  {service.duration} minutes
-                </div>
-
-                {/* Description */}
-                <p className="text-slate-600 mb-6 min-h-[48px]">
-                  {service.description}
-                </p>
-
-                {/* Book button */}
-                <Button
-                  variant="primary"
-                  size="md"
-                  fullWidth
-                  onClick={() =>
-                    navigate("/book", {
-                      state: { selectedService: service.id },
-                    })
-                  }
-                >
-                  Book Now
-                </Button>
-              </div>
-            </Card>
+              <ServiceCard
+                service={service}
+                onBook={(serviceId) =>
+                  navigate("/book", { state: { selectedService: serviceId } })
+                }
+              />
+            </div>
           ))}
         </div>
 

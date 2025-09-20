@@ -1,27 +1,16 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../config/redux/store";
-import { addToCart } from "../../modules/cart/cartSlice";
 import { products } from "../../data/products";
+import ProductCard from "../../components/shop/ProductCard";
 
 const ShopPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<
     "all" | "Hair Care" | "Organic Soap"
   >("all");
-  const dispatch = useDispatch();
-  const cart = useSelector((state: RootState) => state.cart);
 
   const filteredProducts =
     selectedCategory === "all"
       ? products
       : products.filter((product) => product.category === selectedCategory);
-
-  const handleAddToCart = (productId: number) => {
-    const product = products.find((p) => p.id === productId);
-    if (product) {
-      dispatch(addToCart(product));
-    }
-  };
 
   const categories = ["all", "Hair Care", "Organic Soap"] as const;
 
@@ -51,55 +40,9 @@ const ShopPage = () => {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => {
-            const isInCart = cart.items.some(
-              (item) => item.product.id === product.id
-            );
-
-            return (
-              <div
-                key={product.id}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
-                {/* Product Image */}
-                <div className="h-48 bg-gradient-to-br from-pink-100 to-blue-100 flex items-center justify-center">
-                  <span className="text-6xl">
-                    {product.category === "Hair Care" ? "🧴" : "🧼"}
-                  </span>
-                </div>
-
-                {/* Product Info */}
-                <div className="p-6">
-                  <div className="mb-2">
-                    <span className="text-xs font-medium text-blue-600 uppercase tracking-wider">
-                      {product.category}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                  <p className="text-gray-600 text-sm mb-4">
-                    {product.description}
-                  </p>
-
-                  <div className="flex justify-between items-center">
-                    <span className="text-2xl font-bold text-pink-500">
-                      ${product.price}
-                    </span>
-                    <button
-                      onClick={() => handleAddToCart(product.id)}
-                      disabled={isInCart}
-                      className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                        isInCart
-                          ? "bg-gray-200 text-gray-500 cursor-default"
-                          : "bg-gradient-to-r from-pink-500 to-blue-500 text-white hover:shadow-lg transform hover:scale-105"
-                      }`}
-                    >
-                      {isInCart ? "In Cart" : "Add to Cart"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
 
         {/* Empty State */}

@@ -42,9 +42,12 @@ const cartSlice = createSlice({
       state,
       action: PayloadAction<{ productId: number; quantity: number }>
     ) => {
+      console.log("action ->", action);
       const item = state.items.find(
         (item) => item.product.id === action.payload.productId
       );
+
+      console.log("item ", item);
       if (item && action.payload.quantity > 0) {
         item.quantity = action.payload.quantity;
       }

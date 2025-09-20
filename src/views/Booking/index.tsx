@@ -182,7 +182,7 @@ const BookingPage = () => {
                   >
                     {step.number}
                   </div>
-                  <span className="ml-2 text-sm font-medium text-gray-700">
+                  <span className="ml-2 hidden md:block text-sm font-medium text-gray-700">
                     {step.name}
                   </span>
                   {step.number < 5 && (
