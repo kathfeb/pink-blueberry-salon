@@ -1,4 +1,5 @@
-import { RootState } from '../../../config/redux/store';
-import { cartCounterTypes } from './type';
+import { RootState } from "../../../config/redux/store";
+import { cartCounterTypes } from "./type";
 
-export const selectCartCounter = (state: RootState): cartCounterTypes => state.cartCounter;
+export const selectCartCounter = (state: RootState): cartCounterTypes =>
+  state.cartCounter;

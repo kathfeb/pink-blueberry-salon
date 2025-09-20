@@ -2,17 +2,17 @@
  * @description <InputForm> Molecule Component
  */
 
-import classnames from 'classnames';
-import { InputFormProps } from './types';
-import { Input } from '../../atoms/Input';
-import { Label } from '../../atoms/Label';
-import { Button } from '../../atoms/Button';
-import { useState } from 'react';
+import classnames from "classnames";
+import { InputFormProps } from "./types";
+import { Input } from "../../atoms/Input";
+import { Label } from "../../atoms/Label";
+import { Button } from "../../atoms/Button";
+import { useState } from "react";
 
 const InputForm = ({
   id,
   name,
-  type = 'text',
+  type = "text",
   handleChange,
   disabled = false,
   placeholder,
@@ -20,13 +20,13 @@ const InputForm = ({
   register,
   error = false,
   defaultValue,
-  borderRadius = 'large',
-  styles = 'small',
+  borderRadius = "large",
+  styles = "small",
   full = true,
   label,
   required,
-  labelSize = 'normal',
-  labelColor = 'grey-dark',
+  labelSize = "normal",
+  labelColor = "grey-dark",
   border = true,
   errors,
   showPassword = true,
@@ -36,18 +36,28 @@ const InputForm = ({
 
   return (
     <div
-      className={classnames('__input-form', {
-        '--form-full': full
+      className={classnames("__input-form", {
+        "--form-full": full,
       })}
     >
-      <label htmlFor={id} className={classnames('input__container')}>
-        {type !== 'hidden' && label && (
-          <Label required={required} value={label} size={labelSize} variant={labelColor} classNames="capitalize" />
+      <label htmlFor={id} className={classnames("input__container")}>
+        {type !== "hidden" && label && (
+          <Label
+            required={required}
+            value={label}
+            size={labelSize}
+            variant={labelColor}
+            classNames="capitalize"
+          />
         )}
 
-        <div className={classnames('input__container--icon')}>
-          {type === 'password' && showPassword && (
-            <Button onClick={() => setShowField(!showField)} variant="secondary-ghost" className="input__hide-btn ">
+        <div className={classnames("input__container--icon")}>
+          {type === "password" && showPassword && (
+            <Button
+              onClick={() => setShowField(!showField)}
+              variant="secondary-ghost"
+              className="input__hide-btn "
+            >
               {!showField && <i className="fa-regular fa-eye-slash fa-lg"></i>}
               {showField && <i className="fa-regular fa-eye fa-lg "></i>}
             </Button>
@@ -56,7 +66,7 @@ const InputForm = ({
           <Input
             id={id}
             name={name}
-            type={showField ? 'text' : type}
+            type={showField ? "text" : type}
             handleChange={handleChange}
             disabled={disabled}
             placeholder={placeholder}
@@ -68,7 +78,7 @@ const InputForm = ({
             full={full}
             classNames={classnames(
               {
-                '--input--border': border
+                "--input--border": border,
               },
               classNames
             )}
@@ -81,6 +91,6 @@ const InputForm = ({
   );
 };
 
-InputForm.displayName = 'InputForm';
+InputForm.displayName = "InputForm";
 
 export default InputForm;

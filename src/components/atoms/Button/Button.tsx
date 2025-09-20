@@ -2,23 +2,28 @@
  * @description <Button> Atom Component
  */
 
-import { forwardRef } from 'react';
-import classnames from 'classnames';
-import { ButtonProps, FontWeightRecord, SizesRecord, VariantsRecord } from './types';
+import { forwardRef } from "react";
+import classnames from "classnames";
+import {
+  ButtonProps,
+  FontWeightRecord,
+  SizesRecord,
+  VariantsRecord,
+} from "./types";
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
       rounded = true,
-      variant = 'primary-blue-flat',
+      variant = "primary-blue-flat",
       onClick,
-      type = 'button',
+      type = "button",
       disabled,
       classNames,
-      size = 'normal',
+      size = "normal",
       full = false,
-      fontWeight = 'normal',
+      fontWeight = "normal",
       ...rest
     },
     ref
@@ -30,15 +35,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled}
         onClick={onClick}
         className={classnames(
-          '__button',
+          "__button",
           VariantsRecord[variant],
           SizesRecord[size],
           FontWeightRecord[fontWeight],
           classNames,
           {
-            '--rounded': rounded,
-            '--disabled': disabled,
-            '--full': full
+            "--rounded": rounded,
+            "--disabled": disabled,
+            "--full": full,
           }
         )}
         {...rest}
@@ -49,6 +54,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-Button.displayName = 'Button';
+Button.displayName = "Button";
 
 export default Button;

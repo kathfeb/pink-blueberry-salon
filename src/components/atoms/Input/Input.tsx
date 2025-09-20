@@ -2,13 +2,13 @@
  * Input Component
  */
 
-import classnames from 'classnames';
-import { InputBorderRadiusRecord, InputProps, InputStyleRecord } from './types';
+import classnames from "classnames";
+import { InputBorderRadiusRecord, InputProps, InputStyleRecord } from "./types";
 
 const Input = ({
   id,
   name,
-  type = 'text',
+  type = "text",
   handleChange,
   disabled = false,
   placeholder,
@@ -16,8 +16,8 @@ const Input = ({
   register,
   error = false,
   defaultValue,
-  borderRadius = 'small',
-  styles = 'small',
+  borderRadius = "small",
+  styles = "small",
   full = true,
   ...rest
 }: InputProps): JSX.Element => {
@@ -34,11 +34,17 @@ const Input = ({
       }}
       defaultValue={defaultValue}
       placeholder={placeholder}
-      className={classnames('__input', InputBorderRadiusRecord[borderRadius], InputStyleRecord[styles], classNames, {
-        '--error': error && !disabled,
-        '--disabled': disabled,
-        '--full': full
-      })}
+      className={classnames(
+        "__input",
+        InputBorderRadiusRecord[borderRadius],
+        InputStyleRecord[styles],
+        classNames,
+        {
+          "--error": error && !disabled,
+          "--disabled": disabled,
+          "--full": full,
+        }
+      )}
       {...register}
       {...rest}
     />

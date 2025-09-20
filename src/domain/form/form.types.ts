@@ -1,4 +1,10 @@
-import { DeepRequired, FieldErrorsImpl, UseFormRegister, Control, FieldValues } from 'react-hook-form';
+import {
+  DeepRequired,
+  FieldErrorsImpl,
+  UseFormRegister,
+  Control,
+  FieldValues,
+} from "react-hook-form";
 
 type OnSubmit = (e?: React.BaseSyntheticEvent) => Promise<void>;
 interface InputsRegister<T> extends UseFormRegister<T & FieldValues> {}

@@ -2,13 +2,22 @@
  * @description Type definition for Inputs
  */
 
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from "react";
 /**
  * States definitions
  */
-const types = ['text', 'email', 'number', 'color', 'password', 'url', 'tel', 'hidden'] as const;
-const borderRadius = ['small', 'medium', 'large', 'full'] as const;
-const style = ['small', 'medium'] as const;
+const types = [
+  "text",
+  "email",
+  "number",
+  "color",
+  "password",
+  "url",
+  "tel",
+  "hidden",
+] as const;
+const borderRadius = ["small", "medium", "large", "full"] as const;
+const style = ["small", "medium"] as const;
 
 /**
  * Union type of those string literals defined in the array above
@@ -22,15 +31,15 @@ export type InputStyle = (typeof style)[number];
  */
 
 const InputBorderRadiusRecord: Record<InputBorderRadius, string> = {
-  small: '--rounded-small',
-  medium: '--rounded-medium',
-  large: '--rounded-large ',
-  full: '--rounded-full'
+  small: "--rounded-small",
+  medium: "--rounded-medium",
+  large: "--rounded-large ",
+  full: "--rounded-full",
 };
 
 const InputStyleRecord: Record<InputStyle, string> = {
-  small: '--size-small',
-  medium: '--size-medium'
+  small: "--size-small",
+  medium: "--size-medium",
 };
 
 /**

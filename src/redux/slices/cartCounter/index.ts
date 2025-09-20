@@ -1,12 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { cartCounterTypes } from './type';
+import { createSlice } from "@reduxjs/toolkit";
+import { cartCounterTypes } from "./type";
 
 const initialState: cartCounterTypes = {
-  count: 0
+  count: 0,
 };
 
 export const CartCounterSlice = createSlice({
-  name: 'cartCounter',
+  name: "cartCounter",
   initialState,
   reducers: {
     increment: (state) => {
@@ -14,8 +14,8 @@ export const CartCounterSlice = createSlice({
     },
     decrement: (state) => {
       state.count -= 1;
-    }
-  }
+    },
+  },
 });
 
 export const { increment, decrement } = CartCounterSlice.actions;

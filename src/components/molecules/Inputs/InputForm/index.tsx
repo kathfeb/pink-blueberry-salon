@@ -1,7 +1,7 @@
-import { FC } from 'react';
-import { InputSimple, VariantsInput } from '../../../atoms/Inputs/InputSimple';
-import { ErrorField } from '../../../atoms/labels/LabelError';
-import { LabelInput } from '../../../atoms/labels/LabelInput';
+import { FC } from "react";
+import { InputSimple, VariantsInput } from "../../../atoms/Inputs/InputSimple";
+import { ErrorField } from "../../../atoms/labels/LabelError";
+import { LabelInput } from "../../../atoms/labels/LabelInput";
 
 interface InputFormTypes<T = any> {
   defaultValue?: any;
@@ -40,11 +40,15 @@ export const InputForm: FC<InputFormTypes> = ({
   onChageController,
   typeValue,
   idIndex,
-  pattern
+  pattern,
 }) => {
   return (
-    <div id="input" className={`flex flex-col ${full && 'w-full'}`}>
-      <LabelInput title={label} light={light} classes="text-sm font-light mb-1" />
+    <div id="input" className={`flex flex-col ${full && "w-full"}`}>
+      <LabelInput
+        title={label}
+        light={light}
+        classes="text-sm font-light mb-1"
+      />
       <InputSimple
         id={id}
         register={register}

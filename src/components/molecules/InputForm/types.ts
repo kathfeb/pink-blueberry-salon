@@ -5,8 +5,8 @@
  * @param {boolean} isRequired Active required label style
  */
 
-import { InputProps } from '../../atoms/Input/types';
-import { Sizes, Variants } from '../../atoms/Label/types';
+import { InputProps } from "../../atoms/Input/types";
+import { Sizes, Variants } from "../../atoms/Label/types";
 
 /**
  * Export InputFormForm Props
