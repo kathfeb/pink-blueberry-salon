@@ -5,8 +5,10 @@ import {
   removeFromCart,
   updateQuantity,
   clearCart,
+  selectCartBreakdown,
 } from "../../modules/cart/cartSlice";
 import CheckoutModal from "./CheckoutModal";
+import { CartPriceCalculator } from "./CartPriceCalculator";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -16,13 +18,10 @@ interface CartDrawerProps {
 const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
   const { items } = useSelector((state: RootState) => state.cart);
+  const breakdown = useSelector(selectCartBreakdown);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
-  const total = items.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
-  );
+  const [showCalculator, setShowCalculator] = useState(false);
 
   const handleQuantityChange = (productId: number, newQuantity: number) => {
     if (newQuantity === 0) {
@@ -187,12 +186,31 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                   </div>
                 ))}
 
-                {/* Promotional Message */}
-                {total < 50 && (
-                  <div className="bg-blue-50 rounded-lg p-3 text-sm text-blue-700">
-                    <p>
-                      Add ${(50 - total).toFixed(2)} more to get free shipping!
-                    </p>
+                {/* Toggle Calculator Button */}
+                <button
+                  onClick={() => setShowCalculator(!showCalculator)}
+                  className="w-full py-2 px-4 bg-gradient-to-r from-pink-100 to-blue-100 text-gray-700 rounded-lg font-medium hover:from-pink-200 hover:to-blue-200 transition-all flex items-center justify-center gap-2"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                    />
+                  </svg>
+                  {showCalculator ? "Hide" : "Show"} Price Calculator
+                </button>
+
+                {/* Price Calculator */}
+                {showCalculator && (
+                  <div className="mt-4">
+                    <CartPriceCalculator />
                   </div>
                 )}
               </div>
@@ -203,22 +221,38 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
           {items.length > 0 && (
             <div className="border-t p-4 space-y-4">
               {/* Order Summary */}
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>Subtotal</span>
-                  <span>${total.toFixed(2)}</span>
+              {!showCalculator && (
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm text-gray-600">
+                    <span>Subtotal</span>
+                    <span>${breakdown.subtotal.toFixed(2)}</span>
+                  </div>
+                  {breakdown.discountAmount > 0 && (
+                    <div className="flex justify-between text-sm text-pink-600">
+                      <span>Discount</span>
+                      <span>-${breakdown.discountAmount.toFixed(2)}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between text-sm text-gray-600">
+                    <span>Shipping</span>
+                    <span>
+                      {breakdown.shippingCost === 0
+                        ? "FREE"
+                        : `${breakdown.shippingCost.toFixed(2)}`}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm text-gray-600">
+                    <span>Tax (8%)</span>
+                    <span>${breakdown.tax.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between text-lg font-semibold pt-2 border-t">
+                    <span>Total</span>
+                    <span className="text-pink-500">
+                      ${breakdown.total.toFixed(2)}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>Shipping</span>
-                  <span>{total >= 50 ? "FREE" : "$7.99"}</span>
-                </div>
-                <div className="flex justify-between text-lg font-semibold pt-2 border-t">
-                  <span>Total</span>
-                  <span className="text-pink-500">
-                    ${(total + (total >= 50 ? 0 : 7.99)).toFixed(2)}
-                  </span>
-                </div>
-              </div>
+              )}
 
               <button
                 onClick={handleCheckout}

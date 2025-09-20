@@ -39,6 +39,11 @@ npm run dev
 - [x] Professional styling with gradients
 - [x] Comprehensive documentation
 - [x] Unit test suite (10 tests, 100% passing)
+- [x] **Dynamic Price Calculator** for booking services
+- [x] **Shopping Cart Calculator** with shipping options
+- [x] **Promo code system** with multiple discount types
+- [x] **Service add-ons** with real-time pricing
+- [x] **Special requests** (express, weekend, home service)
 
 ## 🛠 Technologies Used
 

@@ -15,6 +15,7 @@ export default tseslint.config(
   {
     ignores: [
       "dist",
+      "dev-dist",
       "coverage",
       "node_modules",
       ".vscode",

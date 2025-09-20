@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../config/redux/store";
 import { setService, nextStep } from "../../modules/booking/bookingSlice";
 import { services } from "../../data";
+import { ServicePriceCalculator } from "./ServicePriceCalculator";
 
 export const ServiceSelector: React.FC = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,13 @@ export const ServiceSelector: React.FC = () => {
           )
         )}
       </div>
+
+      {/* Price Calculator - Shows when a service is selected */}
+      {selectedService && (
+        <div className="mt-8">
+          <ServicePriceCalculator />
+        </div>
+      )}
 
       <div className="flex justify-end mt-8">
         <button

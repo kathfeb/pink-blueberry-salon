@@ -167,6 +167,18 @@ The Pink Blueberry Salon web application is a luxury Progressive Web Application
 - ✅ Comprehensive documentation
 - ✅ Test suite
 - ✅ Professional animations
+- ✅ **Dynamic Price Calculator** (NEW)
+  - Service add-ons with live pricing
+  - Special requests (express +30%, weekend +$20, home +$50)
+  - Promo codes (FIRST10, SUMMER20, WELCOME15, SAVE25, LOYAL50)
+  - Real-time tax calculation (8%)
+  - Visual price breakdown
+- ✅ **Shopping Cart Calculator** (NEW)
+  - Multiple shipping options (standard, express, overnight)
+  - Free shipping over $50
+  - Promo codes (SAVE10, WELCOME20, SHIP5, BEAUTY15)
+  - Live total updates
+  - Savings display
 
 ## Success Metrics
 

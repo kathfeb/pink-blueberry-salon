@@ -11,6 +11,7 @@ import {
 } from "../../modules/booking/bookingSlice";
 import { services } from "../../data/services";
 import { stylists } from "../../data/stylists";
+import { ServicePriceCalculator } from "../../components/booking/ServicePriceCalculator";
 
 // React Hook Form + Yup
 import { useForm } from "react-hook-form";
@@ -226,6 +227,13 @@ const BookingPage = () => {
                   </div>
                 ))}
               </div>
+
+              {/* Add-ons and customization for the selected service */}
+              {booking.service && (
+                <div className="mt-8">
+                  <ServicePriceCalculator />
+                </div>
+              )}
             </div>
           )}
 
@@ -446,6 +454,85 @@ const BookingPage = () => {
                   )}
                 </div>
               </div>
+
+              {/* Price Breakdown */}
+              <div className="bg-white rounded-xl p-6 mt-6 border border-gray-100">
+                <h3 className="font-semibold text-gray-800 mb-4">
+                  Price Breakdown
+                </h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Base Service:</span>
+                    <span className="font-medium">
+                      ${booking.breakdown.servicePrice.toFixed(2)}
+                    </span>
+                  </div>
+                  {booking.breakdown.addOnsTotal > 0 && (
+                    <div className="flex justify-between text-green-600">
+                      <span>Add-ons:</span>
+                      <span className="font-medium">
+                        +${booking.breakdown.addOnsTotal.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
+                  {booking.breakdown.specialRequestsTotal > 0 && (
+                    <div className="flex justify-between text-blue-600">
+                      <span>Special Requests:</span>
+                      <span className="font-medium">
+                        +${booking.breakdown.specialRequestsTotal.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
+                  {booking.breakdown.discountAmount > 0 && (
+                    <div className="flex justify-between text-pink-600">
+                      <span>
+                        Discount
+                        {booking.discountCode
+                          ? ` (${booking.discountCode})`
+                          : ""}
+                        :
+                      </span>
+                      <span className="font-medium">
+                        -${booking.breakdown.discountAmount.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
+                  <div className="border-t pt-2">
+                    <div className="flex justify-between text-gray-600">
+                      <span>Subtotal:</span>
+                      <span className="font-medium">
+                        $
+                        {(
+                          booking.breakdown.subtotal -
+                          booking.breakdown.discountAmount
+                        ).toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-gray-600">
+                      <span>Tax (8%):</span>
+                      <span className="font-medium">
+                        ${booking.breakdown.tax.toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="border-t pt-3">
+                    <div className="flex justify-between text-lg">
+                      <span className="font-bold text-gray-800">Total:</span>
+                      <span className="font-bold text-pink-600 text-xl">
+                        ${booking.breakdown.total.toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                {booking.breakdown.discountAmount > 0 && (
+                  <div className="bg-gradient-to-r from-pink-50 to-blue-50 rounded-lg p-3 mt-3">
+                    <p className="text-center text-sm font-medium text-pink-600">
+                      🎉 You're saving $
+                      {booking.breakdown.discountAmount.toFixed(2)}!
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
@@ -512,6 +599,83 @@ const BookingPage = () => {
                     </p>
                   )}
                 </div>
+              </div>
+
+              {/* Final Price Breakdown */}
+              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 text-left max-w-xl mx-auto space-y-3 mt-6">
+                <h3 className="font-semibold text-gray-800">Price Breakdown</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Base Service:</span>
+                    <span className="font-medium">
+                      ${booking.breakdown.servicePrice.toFixed(2)}
+                    </span>
+                  </div>
+                  {booking.breakdown.addOnsTotal > 0 && (
+                    <div className="flex justify-between text-green-600">
+                      <span>Add-ons:</span>
+                      <span className="font-medium">
+                        +${booking.breakdown.addOnsTotal.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
+                  {booking.breakdown.specialRequestsTotal > 0 && (
+                    <div className="flex justify-between text-blue-600">
+                      <span>Special Requests:</span>
+                      <span className="font-medium">
+                        +${booking.breakdown.specialRequestsTotal.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
+                  {booking.breakdown.discountAmount > 0 && (
+                    <div className="flex justify-between text-pink-600">
+                      <span>
+                        Discount
+                        {booking.discountCode
+                          ? ` (${booking.discountCode})`
+                          : ""}
+                        :
+                      </span>
+                      <span className="font-medium">
+                        -${booking.breakdown.discountAmount.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
+                  <div className="border-t pt-2">
+                    <div className="flex justify-between text-gray-600">
+                      <span>Subtotal:</span>
+                      <span className="font-medium">
+                        $
+                        {(
+                          booking.breakdown.subtotal -
+                          booking.breakdown.discountAmount
+                        ).toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-gray-600">
+                      <span>Tax (8%):</span>
+                      <span className="font-medium">
+                        ${booking.breakdown.tax.toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="border-t pt-3">
+                    <div className="flex justify-between text-lg">
+                      <span className="font-bold text-gray-800">Total:</span>
+                      <span className="font-bold text-pink-600 text-xl">
+                        ${booking.breakdown.total.toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                {booking.breakdown.discountAmount > 0 && (
+                  <div className="bg-gradient-to-r from-pink-50 to-blue-50 rounded-lg p-3 mt-2">
+                    <p className="text-center text-sm font-medium text-pink-600">
+                      🎉 You're saving $
+                      {booking.breakdown.discountAmount.toFixed(2)}!
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="flex flex-col sm:flex-row justify-center gap-3 mt-8">

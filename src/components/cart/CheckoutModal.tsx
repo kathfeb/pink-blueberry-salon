@@ -4,7 +4,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { RootState } from "../../config/redux/store";
-import { clearCart, type CartItem } from "../../modules/cart/cartSlice";
+import {
+  clearCart,
+  type CartItem,
+  selectCartBreakdown,
+} from "../../modules/cart/cartSlice";
 import OrderSuccessModal from "./OrderSuccessModal";
 
 interface CheckoutModalProps {
@@ -96,6 +100,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
 }) => {
   const dispatch = useDispatch();
   const items = useSelector<RootState, CartItem[]>((state) => state.cart.items);
+  const breakdown = useSelector(selectCartBreakdown);
   const [step, setStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -125,13 +130,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
     },
   });
 
-  const total = items.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
-  );
-  const tax = total * 0.08; // 8% tax
-  const shipping = total > 50 ? 0 : 7.99; // Free shipping over $50
-  const finalTotal = total + tax + shipping;
+  // Totals are derived from cart breakdown in Redux
 
   const handleNextStep = async () => {
     let fieldsToValidate: (keyof CheckoutFormData)[] = [];
@@ -584,26 +583,38 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       <h4 className="font-medium mb-2">Order Summary</h4>
                       <div className="flex justify-between text-sm">
                         <span>Subtotal</span>
-                        <span>${total.toFixed(2)}</span>
+                        <span>${breakdown.subtotal.toFixed(2)}</span>
                       </div>
-                      <div className="flex justify-between text-sm">
-                        <span>Tax (8%)</span>
-                        <span>${tax.toFixed(2)}</span>
-                      </div>
+                      {breakdown.discountAmount > 0 && (
+                        <div className="flex justify-between text-sm">
+                          <span>Discount</span>
+                          <span className="text-pink-600">
+                            -${breakdown.discountAmount.toFixed(2)}
+                          </span>
+                        </div>
+                      )}
                       <div className="flex justify-between text-sm">
                         <span>Shipping</span>
                         <span
                           className={
-                            shipping === 0 ? "text-green-600 font-medium" : ""
+                            breakdown.shippingCost === 0
+                              ? "text-green-600 font-medium"
+                              : ""
                           }
                         >
-                          {shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`}
+                          {breakdown.shippingCost === 0
+                            ? "FREE"
+                            : `$${breakdown.shippingCost.toFixed(2)}`}
                         </span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>Tax (8%)</span>
+                        <span>${breakdown.tax.toFixed(2)}</span>
                       </div>
                       <div className="border-t pt-2 flex justify-between font-semibold text-lg">
                         <span>Total</span>
                         <span className="text-pink-500">
-                          ${finalTotal.toFixed(2)}
+                          ${breakdown.total.toFixed(2)}
                         </span>
                       </div>
                     </div>
